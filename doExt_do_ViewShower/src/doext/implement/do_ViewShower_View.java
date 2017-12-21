@@ -31,8 +31,8 @@ import doext.define.do_ViewShower_MAbstract;
  * 自定义扩展UIView组件实现类，此类必须继承相应VIEW类，并实现DoIUIModuleView,do_SlideView_IMethod接口；
  * #如何调用组件自定义事件？可以通过如下方法触发事件：
  * this.model.getEventCenter().fireEvent(_messageName, jsonResult);
- * 参数解释：@_messageName字符串事件名称，@jsonResult传递事件参数对象；
- * 获取DoInvokeResult对象方式new DoInvokeResult(this.getUniqueKey());
+ * 参数解释：@_messageName字符串事件名称，@jsonResult传递事件参数对象； 获取DoInvokeResult对象方式new
+ * DoInvokeResult(this.getUniqueKey());
  */
 public class do_ViewShower_View extends ViewFlipper implements DoIUIModuleView, do_ViewShower_IMethod, AnimationListener {
 
@@ -257,12 +257,14 @@ public class do_ViewShower_View extends ViewFlipper implements DoIUIModuleView, 
 		}
 	}
 
+
 	private void loadUIView(String path, DoSourceFile dsFile) throws Exception {
 		String content = dsFile.getTxtContent();
 		DoUIContainer _doUIContainer = new DoUIContainer(model.getCurrentPage());
 		_doUIContainer.loadFromContent(content, null, null);
 		_doUIContainer.loadDefalutScriptFile(path);
 		this.addView((View) _doUIContainer.getRootView().getCurrentUIModuleView());
+		_doUIContainer.getRootView().didLoadView();
 		viewLoadAddressMap.put(currViewId, _doUIContainer.getRootView().getUniqueKey());
 	}
 
